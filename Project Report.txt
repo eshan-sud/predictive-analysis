@@ -1,0 +1,184 @@
+Cover Page
+Assignment Project: Exploratory Data Analytics and Predictive Modeling
+Course: Predictive Analytics
+Submitted By: [Your Name, Roll Number]
+Submitted To: [Instructor’s Name]
+Submission Date: [Date]
+
+
+Table of Contents
+Introduction
+Dataset Overview
+Data Preparation
+Exploratory Data Analysis
+Predictive Modeling
+Results and Model Evaluation
+Conclusion and Future Work
+References
+
+
+1. Introduction
+
+Objective of the Assignment:
+The primary objective of this project is to predict the concentrations of key air pollutants, particularly Nitrogen Dioxide (NO2), using data from various environmental sensors. The project involves several steps, including data cleaning, exploratory data analysis (EDA), feature engineering, and predictive modeling. The ultimate goal is to build a reliable model that can accurately forecast pollutant levels based on sensor readings and environmental factors. By achieving this, we can better monitor air quality, contributing to more effective strategies for managing pollution and safeguarding public health.
+
+Significance of EDA and Predictive Modeling:
+Exploratory Data Analysis (EDA) is crucial for gaining insights into the dataset, identifying underlying patterns, detecting outliers, and assessing relationships between features. It helps in understanding the structure and characteristics of the data, enabling us to make informed decisions about feature selection and transformation before building predictive models.
+
+Predictive modeling, on the other hand, uses statistical and machine learning algorithms to forecast pollutant concentrations. Accurate predictions can inform policymakers, helping them take timely actions to mitigate air pollution. By leveraging predictive analytics, this project aims to provide valuable insights into air quality trends and contribute to better environmental monitoring systems.
+
+
+2. Dataset Overview
+
+Dataset Source:
+	Platform: Kaggle
+	Link: https://www.kaggle.com/datasets/fedesoriano/air-quality-data-set/
+
+The dataset used in this project is sourced from Kaggle. It contains air quality measurements recorded by multiple sensors, tracking pollutant levels and environmental conditions over a specific time period. The data is suitable for building predictive models to estimate pollutant concentrations based on sensor readings.
+
+Dataset Description:
+Rows: 9,471 entries
+Columns: 17 features
+Non-Null Data: 9,357 entries for most columns
+Types of Features:
+	Date and Time: Date, Time (object types)
+	Independent Variables: Sensor readings (PT08.S1(CO), PT08.S2(NMHC), PT08.S3(NOx), PT08.S4(NO2), PT08.S5(O3)) and environmental factors (T for temperature, RH for relative humidity, AH for absolute humidity)
+	Dependent (Target) Variable: NO2(GT) (Nitrogen Dioxide concentration)
+	Additional Columns: CO(GT), NMHC(GT), NOx(GT) for various pollutant levels
+	Unused Columns: Unnamed: 15, Unnamed: 16 (contain no data)
+
+The dataset includes a mix of sensor data for various gases and pollutants, along with environmental measurements like temperature and humidity, providing a comprehensive view for analysis and prediction.
+
+Objective:
+The primary objective of this project is to predict the concentration of NO2(GT) (Nitrogen Dioxide) using available sensor data and environmental factors. Additionally, the performance of various regression models will be evaluated to determine the most accurate approach for forecasting air quality.
+
+
+3. Data Preparation
+-Data Cleaning:
+The following steps were taken to clean the dataset:
+
+Handling Missing Values:
+	Replaced invalid values like -200 with NaN.
+	Applied KNN Imputation to fill in missing values based on the similarity of nearby data points.
+Removing Duplicates:
+	Duplicate rows were checked and removed to maintain data consistency.
+Handling Invalid Data:
+	The dataset contained invalid entries (e.g., -200), which were replaced with NaN before imputation.
+
+Example:
+"Data cleaning involved replacing invalid values (-200) with NaN, followed by applying the KNN imputer to handle missing values effectively. Duplicate entries were also removed."
+
+-Feature Engineering:
+Pollution Index:
+	Created a new feature called Pollution Index, which is the sum of key pollutants:
+		CO(GT), C6H6(GT), NOx(GT), and NO2(GT).
+	This helps in understanding the overall pollution level by aggregating individual pollutant metrics.
+
+Output:
+"Pollution Index Feature Added!"
+
+Summary Statistics:
+The following table provides a summary of the statistics (mean, median, mode, minimum, maximum, and standard deviation) for each feature:
+<Image1>
+
+
+4. Exploratory Data Analysis (EDA)
+Data Distributions: To analyze the data distribution, histograms and box plots were used:
+
+Histograms:
+Visualizations show skewed distributions, especially for pollutants like CO(GT) and C6H6(GT). These pollutants exhibit significant left-skewness due to a high number of low or negative readings, likely representing missing or invalid data.
+
+Box Plots:
+The box plot analysis indicates the presence of several outliers across major pollutants. Notably, NOx(GT) displayed a high number of extreme values compared to CO(GT) and C6H6(GT), suggesting higher variability in NOx levels.
+
+Correlation Analysis:
+A correlation heatmap was generated to examine relationships between features.
+
+-Strong Correlations:
+	PT08.S1(CO) and CO(GT) show a high positive correlation (~0.85), suggesting that PT08.S1 is a reliable indicator of CO levels.
+	NOx(GT) and NO2(GT) also exhibit strong correlations, likely due to their close chemical relationship.
+-Sensor Relationships:
+	High positive correlations among sensor readings (PT08 series) indicate that these sensors may measure related or overlapping factors in the air quality data.
+
+Key Insights:
+-Outliers: Detected significant outliers in pollutants, particularly in NOx(GT), indicating potential spikes in air pollution or sensor anomalies.
+-Relationships: Strong correlations between target pollutant levels and sensor data validate using sensor readings as predictors in further modeling.
+
+
+5. Predictive Modeling
+Model Selection:
+
+We chose Linear Regression, Decision Tree Regressor, and Random Forest Regressor for this regression task.
+Linear Regression is selected for its simplicity and ability to provide a baseline performance measure.
+Decision Tree Regressor captures non-linear patterns, making it effective for datasets with complex relationships.
+Random Forest Regressor is used due to its ensemble approach, reducing variance and improving model performance through multiple decision trees.
+
+Training and Testing:
+The dataset was split into training and testing sets using an 80/20 split, with 80% of the data for training and 20% for testing.
+
+Model Training:
+Linear Regression: Used default settings without regularization.
+Decision Tree Regressor: Configured with a random_state=42 to ensure reproducibility.
+Random Forest Regressor: Set with n_estimators=100 (number of trees) and random_state=42 for reproducibility.
+
+Model Evaluation:
+Evaluation metrics include Mean Squared Error (MSE) and R² Score:
+Linear Regression:
+MSE: 524.19
+R² Score: 0.77
+Decision Tree Regressor:
+MSE: 645.40
+R² Score: 0.72
+Random Forest Regressor:
+MSE: 326.07
+R² Score: 0.86
+
+Results:
+The Random Forest Regressor outperformed the other models with the lowest MSE and the highest R² score, indicating it captures complex patterns and generalizes well on this dataset.
+
+
+6. Results and Model Evaluation
+
+Results Summary:
+Linear Regression:
+	MSE: 524.19
+	R² Score: 0.77
+Decision Tree Regressor:
+	MSE: 645.40
+	R² Score: 0.72
+Random Forest Regressor:
+	MSE: 326.07
+	R² Score: 0.86
+
+Interpretation:
+The Random Forest Regressor performed the best, achieving the lowest MSE of 326.07 and the highest R² score of 0.86, indicating it captured the underlying patterns in the data more effectively.
+Linear Regression showed a good fit as a baseline model but had higher error compared to the ensemble method.
+The Decision Tree Regressor had the lowest R² score, suggesting it might have overfit the training data and performed poorly on unseen data.
+
+Visualizations:
+(Images)
+Scatter plots of Actual vs Predicted values were generated for each model, showing the Random Forest's closer alignment to the diagonal line, indicating better predictions.
+Bar plots comparing the MSE and R² scores of the models highlighted the superior performance of the Random Forest Regressor.
+
+
+7. Conclusion and Future Work
+
+Summary of Findings:
+The project successfully predicted NO2(GT) concentrations using multiple regression models. The Random Forest Regressor provided the most accurate results, outperforming Linear Regression and Decision Tree Regressor.
+
+Limitations:
+Outliers in the sensor readings could have impacted model accuracy, leading to higher errors in simpler models like Linear Regression.
+The dataset's limited size and potential multicollinearity between features might have constrained model performance.
+
+Future Improvements:
+Future work could involve exploring deep learning models like LSTM or neural networks to capture more complex temporal dependencies in the data.
+Adding additional features such as weather data or external pollution levels could further enhance the predictive accuracy.
+
+
+8. References
+UCI Machine Learning Repository: Air Quality Dataset.
+Scikit-learn Documentation: For model training and evaluation.
+Matplotlib Documentation: For visualization and plotting results.
+Research papers and online tutorials on Visual SLAM and Sensor Data Analysis.
+
+
